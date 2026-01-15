@@ -74,10 +74,6 @@
     text-decoration: underline;
   }
 
-  .chart-note a:hover {
-    opacity: 0.75;
-  }
-
   footer {
     margin-top: 35px;
     font-size: 12px;
@@ -85,15 +81,9 @@
     opacity: 0.8;
   }
 
-  /* ---------------- MOBILE FIXES ---------------- */
   @media (max-width: 600px) {
     body {
       padding: 10px;
-    }
-
-    header img {
-      height: 52px;
-      width: auto;
     }
 
     h1 {
@@ -104,34 +94,15 @@
       font-size: 15px;
     }
 
-    .card {
-      padding: 25px;
-      width: 100%;
-      max-width: 100%;
-      min-height: 420px;
-      border-radius: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-    }
-
     #chart-container {
-      width: 100% !important;
+      width: 100%;
       max-width: 420px;
-      height: auto !important;
-      margin: 0 auto;
       padding: 20px;
     }
 
     canvas#radarChart {
       width: 100% !important;
       height: auto !important;
-    }
-
-    .chart-note {
-      font-size: 12px;
     }
   }
 </style>
@@ -153,7 +124,7 @@
 
   <div class="chart-note">
     Learn more about each of the nine dimensions and their role in
-    scaling AI across your organisation 
+    scaling AI across your organisation
     <a href="https://sites.google.com/impatient.health/digital-maturity-dimensions/home"
        target="_blank" rel="noopener noreferrer">
       here
@@ -173,15 +144,16 @@ function getVal(name) {
   return v ? v : 0;
 }
 
-const strategy = getVal("strategy");
+/* URL parameters (unchanged) */
+const strategy     = getVal("strategy");
+const partners     = getVal("partner_strategy");
+const leadership   = getVal("leadership_governance");
+const benefits     = getVal("benefits_realisation");
+const dataAI       = getVal("data_governance");
+const change       = getVal("change_management");
+const talent       = getVal("talent_technology_readiness");
 const implementation = getVal("implementation");
-const benefits = getVal("benefits_realisation");
-const change = getVal("change_management");
-const dataAI = getVal("data_governance");
-const partners = getVal("partner_strategy");
-const lifecycle = getVal("lifecycle_management");
-const talent = getVal("talent_technology_readiness");
-const leadership = getVal("leadership_governance");
+const lifecycle    = getVal("lifecycle_management");
 
 const levelLabels = {
   1: "L1 – Minimal/No AI",
@@ -197,27 +169,27 @@ new Chart(ctx, {
   type: "radar",
   data: {
     labels: [
-      ["AI Strategy"],
-      ["Implementation"],
-      ["Benefits", "Realisation"],
-      ["Change", "Management"],
-      ["Data Governance"],
+      ["AI Strategy", "& Vision"],
       ["Partner", "Strategy"],
-      ["Lifecycle", "Management"],
+      ["Leadership", "& Governance"],
+      ["Benefits", "Realisation"],
+      ["Data", "Governance"],
+      ["Change", "Management"],
       ["Talent", "& Technology"],
-      ["Leadership", "& Governance"]
+      ["Process &", "Implementation"],
+      ["Lifecycle", "Management"]
     ],
     datasets: [{
       data: [
         strategy,
-        implementation,
-        benefits,
-        change,
-        dataAI,
         partners,
-        lifecycle,
+        leadership,
+        benefits,
+        dataAI,
+        change,
         talent,
-        leadership
+        implementation,
+        lifecycle
       ],
       backgroundColor: "rgba(59, 0, 48, 0.20)",
       borderColor: "#3b0030",
@@ -233,12 +205,21 @@ new Chart(ctx, {
       r: {
         min: 0,
         max: 4,
-        ticks: { stepSize: 1, color: "#3b0030" },
-        grid: { color: "rgba(59,0,48,0.25)" },
-        angleLines: { color: "rgba(59,0,48,0.25)" },
+        ticks: {
+          stepSize: 1,
+          color: "#3b0030"
+        },
+        grid: {
+          color: "rgba(59,0,48,0.25)"
+        },
+        angleLines: {
+          color: "rgba(59,0,48,0.25)"
+        },
         pointLabels: {
           color: "#3b0030",
-          font: { size: isMobile ? 10 : 14 }
+          font: {
+            size: isMobile ? 10 : 14
+          }
         }
       }
     },
@@ -259,3 +240,4 @@ new Chart(ctx, {
 
 </body>
 </html>
+
