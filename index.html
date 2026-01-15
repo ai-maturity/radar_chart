@@ -57,6 +57,27 @@
     margin: 0 auto;
   }
 
+  .chart-note {
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #3b0030;
+    opacity: 0.85;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chart-note a {
+    color: #3b0030;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .chart-note a:hover {
+    opacity: 0.75;
+  }
+
   footer {
     margin-top: 35px;
     font-size: 12px;
@@ -90,30 +111,34 @@
       min-height: 420px;
       border-radius: 14px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
     }
 
     #chart-container {
-      width: 100% !important;   /* fill mobile width */
-      max-width: 420px;          /* optional max width */
-      height: auto !important;   /* maintain aspect ratio */
+      width: 100% !important;
+      max-width: 420px;
+      height: auto !important;
       margin: 0 auto;
-      padding: 20px;             /* extra space to avoid cutting labels */
+      padding: 20px;
     }
 
     canvas#radarChart {
-      width: 100% !important;   /* scale chart to container */
+      width: 100% !important;
       height: auto !important;
+    }
+
+    .chart-note {
+      font-size: 12px;
     }
   }
 </style>
-
 </head>
+
 <body>
 
-<!-- HEADER WITH LOGO -->
 <header>
   <img src="logo 5.png" alt="Evinova x Impatient Health">
 </header>
@@ -125,6 +150,15 @@
   <div id="chart-container">
     <canvas id="radarChart"></canvas>
   </div>
+
+  <div class="chart-note">
+    Interested in going deeper? Learn more about each of the nine dimensions and their role in
+    scaling AI across your organisation 
+    <a href="https://sites.google.com/d/1BxriUiV4kuv7AKAze4lmfqcJW0cHIWmU/p/14e68DoBpSVmmJlePGC2Qb7OS7N4XhIZZ/edit"
+       target="_blank" rel="noopener noreferrer">
+      here
+    </a>.
+  </div>
 </div>
 
 <footer>
@@ -132,9 +166,6 @@
 </footer>
 
 <script>
-// --------------------------------------------------
-// 1. READ URL PARAMETERS
-// --------------------------------------------------
 const url = new URLSearchParams(window.location.search);
 
 function getVal(name) {
@@ -142,7 +173,6 @@ function getVal(name) {
   return v ? v : 0;
 }
 
-// Extract variables EXACTLY matching your Typeform variable names
 const strategy = getVal("strategy");
 const implementation = getVal("implementation");
 const benefits = getVal("benefits_realisation");
@@ -153,9 +183,6 @@ const lifecycle = getVal("lifecycle_management");
 const talent = getVal("talent_technology_readiness");
 const leadership = getVal("leadership_governance");
 
-// --------------------------------------------------
-// 2. LEVEL MAPPING (TOOLTIP TEXT)
-// --------------------------------------------------
 const levelLabels = {
   1: "L1 – Minimal/No AI",
   2: "L2 – Emerging/Basic",
@@ -163,12 +190,7 @@ const levelLabels = {
   4: "L4 – Transformational/Strategic"
 };
 
-// --------------------------------------------------
-// 3. CREATE RADAR CHART
-// --------------------------------------------------
 const ctx = document.getElementById("radarChart").getContext("2d");
-
-// Detect if mobile to adjust label font size
 const isMobile = window.innerWidth <= 600;
 
 new Chart(ctx, {
@@ -214,7 +236,10 @@ new Chart(ctx, {
         ticks: { stepSize: 1, color: "#3b0030" },
         grid: { color: "rgba(59,0,48,0.25)" },
         angleLines: { color: "rgba(59,0,48,0.25)" },
-        pointLabels: { color: "#3b0030", font: { size: isMobile ? 10 : 14 } } // smaller labels on mobile
+        pointLabels: {
+          color: "#3b0030",
+          font: { size: isMobile ? 10 : 14 }
+        }
       }
     },
     plugins: {
@@ -234,6 +259,3 @@ new Chart(ctx, {
 
 </body>
 </html>
-
-
-
