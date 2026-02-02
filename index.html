@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Your AI Maturity</title>
 
+<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<!-- Century Gothic -->
 <link href="https://fonts.googleapis.com/css2?family=Century+Gothic:wght@400;700&display=swap" rel="stylesheet" />
 
 <style>
@@ -84,8 +86,13 @@
       padding: 10px;
     }
 
-    h1 { font-size: 26px; }
-    h2 { font-size: 15px; }
+    h1 {
+      font-size: 26px;
+    }
+
+    h2 {
+      font-size: 15px;
+    }
 
     #chart-container {
       width: 100%;
@@ -116,9 +123,12 @@
   </div>
 
   <div class="chart-note">
-    Learn more about each dimension
+    Learn more about each of the nine dimensions and their role in
+    scaling AI across your organisation
     <a href="https://sites.google.com/impatient.health/digital-maturity-dimensions/home"
-       target="_blank" rel="noopener noreferrer">here</a>.
+       target="_blank" rel="noopener noreferrer">
+      here
+    </a>.
   </div>
 </div>
 
@@ -134,6 +144,7 @@ function getVal(name) {
   return isNaN(v) ? 0 : v;
 }
 
+/* URL parameters */
 const strategy       = getVal("strategy");
 const partners       = getVal("partner_strategy");
 const leadership     = getVal("leadership_governance");
@@ -144,6 +155,7 @@ const talent         = getVal("talent_technology_readiness");
 const implementation = getVal("implementation");
 const lifecycle      = getVal("lifecycle_management");
 
+/* Industry benchmark */
 const industryData = [3, 2.5, 2.5, 1, 2.5, 1, 2, 1.5, 2];
 
 const levelLabels = {
@@ -174,11 +186,11 @@ new Chart(ctx, {
       {
         label: "Industry Benchmark",
         data: industryData,
-        backgroundColor: "rgba(59, 0, 48, 0.35)",
-        borderColor: "#3b0030",
+        backgroundColor: "rgba(120,130,150,0.18)",
+        borderColor: "#788296",
         borderWidth: 2,
         borderDash: [6,4],
-        pointBackgroundColor: "#3b0030",
+        pointBackgroundColor: "#788296",
         pointRadius: 3
       },
       {
@@ -194,10 +206,10 @@ new Chart(ctx, {
           implementation,
           lifecycle
         ],
-        backgroundColor: "rgba(155, 89, 182, 0.22)",
-        borderColor: "#9b59b6",
+        backgroundColor: "rgba(59, 0, 48, 0.20)",
+        borderColor: "#3b0030",
         borderWidth: 2,
-        pointBackgroundColor: "#9b59b6",
+        pointBackgroundColor: "#3b0030",
         pointRadius: 4
       }
     ]
@@ -213,11 +225,17 @@ new Chart(ctx, {
           stepSize: 1,
           color: "#3b0030"
         },
-        grid: { color: "rgba(59,0,48,0.25)" },
-        angleLines: { color: "rgba(59,0,48,0.25)" },
+        grid: {
+          color: "rgba(59,0,48,0.25)"
+        },
+        angleLines: {
+          color: "rgba(59,0,48,0.25)"
+        },
         pointLabels: {
           color: "#3b0030",
-          font: { size: isMobile ? 10 : 14 }
+          font: {
+            size: isMobile ? 10 : 14
+          }
         }
       }
     },
@@ -226,7 +244,9 @@ new Chart(ctx, {
         display: true,
         labels: {
           color: "#3b0030",
-          font: { size: isMobile ? 11 : 13 }
+          font: {
+            size: isMobile ? 11 : 13
+          }
         }
       },
       tooltip: {
