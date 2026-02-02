@@ -140,20 +140,23 @@
 const url = new URLSearchParams(window.location.search);
 
 function getVal(name) {
-  const v = parseInt(url.get(name));
-  return v ? v : 0;
+  const v = parseFloat(url.get(name));
+  return isNaN(v) ? 0 : v;
 }
 
-/* URL parameters (unchanged) */
-const strategy     = getVal("strategy");
-const partners     = getVal("partner_strategy");
-const leadership   = getVal("leadership_governance");
-const benefits     = getVal("benefits_realisation");
-const dataAI       = getVal("data_governance");
-const change       = getVal("change_management");
-const talent       = getVal("talent_technology_readiness");
+/* URL parameters */
+const strategy       = getVal("strategy");
+const partners       = getVal("partner_strategy");
+const leadership     = getVal("leadership_governance");
+const benefits       = getVal("benefits_realisation");
+const dataAI         = getVal("data_governance");
+const change         = getVal("change_management");
+const talent         = getVal("talent_technology_readiness");
 const implementation = getVal("implementation");
-const lifecycle    = getVal("lifecycle_management");
+const lifecycle      = getVal("lifecycle_management");
+
+/* Industry benchmark */
+const industryData = [3, 2.5, 2.5, 1, 2.5, 1, 2, 1.5, 2];
 
 const levelLabels = {
   1: "L1 – Minimal/No AI",
@@ -175,28 +178,41 @@ new Chart(ctx, {
       ["Benefits", "Realisation"],
       ["Data", "Governance"],
       ["Change", "Management"],
-      ["Talent", "& Technology"],
+      ["Talent &", "Technology"],
       ["Process &", "Implementation"],
       ["Lifecycle", "Management"]
     ],
-    datasets: [{
-      data: [
-        strategy,
-        partners,
-        leadership,
-        benefits,
-        dataAI,
-        change,
-        talent,
-        implementation,
-        lifecycle
-      ],
-      backgroundColor: "rgba(59, 0, 48, 0.20)",
-      borderColor: "#3b0030",
-      borderWidth: 2,
-      pointBackgroundColor: "#3b0030",
-      pointRadius: 4
-    }]
+    datasets: [
+      {
+        label: "Industry Benchmark",
+        data: industryData,
+        backgroundColor: "rgba(120,130,150,0.18)",
+        borderColor: "#788296",
+        borderWidth: 2,
+        borderDash: [6,4],
+        pointBackgroundColor: "#788296",
+        pointRadius: 3
+      },
+      {
+        label: "Your Score",
+        data: [
+          strategy,
+          partners,
+          leadership,
+          benefits,
+          dataAI,
+          change,
+          talent,
+          implementation,
+          lifecycle
+        ],
+        backgroundColor: "rgba(59, 0, 48, 0.20)",
+        borderColor: "#3b0030",
+        borderWidth: 2,
+        pointBackgroundColor: "#3b0030",
+        pointRadius: 4
+      }
+    ]
   },
   options: {
     responsive: true,
@@ -224,12 +240,20 @@ new Chart(ctx, {
       }
     },
     plugins: {
-      legend: { display: false },
+      legend: {
+        display: true,
+        labels: {
+          color: "#3b0030",
+          font: {
+            size: isMobile ? 11 : 13
+          }
+        }
+      },
       tooltip: {
         callbacks: {
           label: function(ctx) {
             const val = ctx.raw;
-            return `Score: ${val} → ${levelLabels[val] || "No data"}`;
+            return `${ctx.dataset.label}: ${val} → ${levelLabels[Math.round(val)] || "No data"}`;
           }
         }
       }
@@ -240,4 +264,5 @@ new Chart(ctx, {
 
 </body>
 </html>
+
 
