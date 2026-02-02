@@ -155,7 +155,7 @@ const talent         = getVal("talent_technology_readiness");
 const implementation = getVal("implementation");
 const lifecycle      = getVal("lifecycle_management");
 
-/* Industry benchmark */
+/* Industry Average */
 const industryData = [3, 2.5, 2.5, 1, 2.5, 1, 2, 1.5, 2];
 
 const levelLabels = {
@@ -184,7 +184,7 @@ new Chart(ctx, {
     ],
     datasets: [
       {
-        label: "Industry Benchmark",
+        label: "Industry Average",
         data: industryData,
         backgroundColor: "rgba(120,130,150,0.18)",
         borderColor: "#788296",
